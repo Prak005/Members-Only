@@ -19,6 +19,16 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS session (
+    sid VARCHAR NOT NULL,
+    sess JSON NOT NULL,
+    expire timestamp(6) NOT NULL,
+    PRIMARY KEY (sid)
+);
+
+CREATE INDEX IF NOT EXISTS IDX_session_expire 
+    ON session (expire);
 `;
 
 async function main(){
