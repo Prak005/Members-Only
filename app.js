@@ -25,9 +25,14 @@ app.use(express.urlencoded({ extended:false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use('/', authRoutes);
 app.get('/', (req, res) => {
-    res.send('Home');
+    if (req.user){
+        res.send(`Logged in as ${req.user.email}`);
+    } else {
+        res.send('Not logged in');
+    }
 });
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
