@@ -6,12 +6,19 @@
     </head>
     <body>
         <h1>Sign Up</h1>
-        <form method="POST" action="/sign-up">
-            <input type="text" name="firstName" placeholder="First Name" required />
+        <% if(errors) {%>
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+        <form action="/sign-up" method="POST">
+            <input type="text" name="firstName" placeholder="First Name" value="<%= oldData.firstName || '' %>" required />
             <br/>
-            <input type="text" name="lastName" placeholder="Last Name" required />
+            <input type="text" name="lastName" placeholder="Last Name" value="<%= oldData.lastName || '' %>" required />
             <br/>
-            <input type="email" name="email" placeholder="Email" required />
+            <input type="email" name="email" placeholder="Email" value="<%= oldData.email || '' %>" required />
             <br/>
             <input type="password" name="password" placeholder="Password" required />
             <br/>
