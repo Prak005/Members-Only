@@ -48,10 +48,21 @@ router.post('/sign-up',
 router.get('/log-in', (req, res) => {
     res.render('log-in', { errors: [] });
 });
-router.post('/log-in', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/log-in',
-})
-);
+router.post('/log-in', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if(err)
+            return next(err);
+        if(!user){
+            return res.render('log-in', {
+                errors: [info.message],
+            });
+        }
+        req.login(user, (err) => {
+            if(err)
+                return next(err);
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
 
 module.exports = router;
