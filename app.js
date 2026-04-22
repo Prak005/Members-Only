@@ -25,7 +25,10 @@ app.use(express.urlencoded({ extended:false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 app.use('/', authRoutes);
 app.get('/', (req, res) => {
     if (req.user){
