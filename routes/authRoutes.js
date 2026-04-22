@@ -5,7 +5,10 @@ const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
 
 router.get('/sign-up', (req, res) => {
-    res.render('sign-up');
+    res.render('sign-up', {
+        errors: [],
+        oldData: [],
+    });
 });
 router.post('/sign-up',
     [
@@ -23,7 +26,10 @@ router.post('/sign-up',
     async (req, res) => {
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.send(errors.array());
+            return res.render('sign-up', {
+                errors: errors.array(),
+                oldData: req.body,
+            });
         }
         const { firstName, lastName, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
