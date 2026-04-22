@@ -5,6 +5,10 @@ const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
 
+router.get('/', (req, res) => {
+    res.render('index');
+});
+
 router.get('/sign-up', (req, res) => {
     res.render('sign-up', {
         errors: [],
@@ -63,6 +67,14 @@ router.post('/log-in', (req, res, next) => {
             return res.redirect('/');
         });
     })(req, res, next);
+});
+
+router.get('/log-out', (req, res, next) => {
+    req.logout((err) => {
+        if (err)
+            return next(err);
+        return res.redirect('/');
+    });
 });
 
 module.exports = router;
