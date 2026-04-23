@@ -46,6 +46,12 @@ async function makeMember(userId) {
     );
 }
 
+async function deleteMessages(id) {
+    await pool.query(
+        `DELETE FROM messages WHERE id=$1`,[id]
+    );
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
@@ -53,4 +59,5 @@ module.exports = {
     createMessage,
     getAllMessages,
     makeMember,
+    deleteMessages,
 };
