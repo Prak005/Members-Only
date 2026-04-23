@@ -40,10 +40,17 @@ async function getAllMessages(){
     return rows;
 }
 
+async function makeMember(userId) {
+    await pool.query(
+        `UPDATE users SET is_member = TRUE WHERE id=$1`,[userId]
+    );
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
     getUserById,
     createMessage,
     getAllMessages,
+    makeMember,
 };
