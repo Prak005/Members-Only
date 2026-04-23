@@ -92,4 +92,17 @@ router.post('/create-message', isAuthenticated, async(req, res) => {
     res.redirect('/');
 });
 
+router.get('/join', isAuthenticated, (req, res) => {
+    res.render('join', { error:null });
+});
+router.post('/join', isAuthenticated, async(req, res) => {
+    const { passcode } = req.body;
+    const secret = 'GLaDOS';
+    if(passcode === secret){
+        await db.makeMember(req.user.id);
+        return res.redirect('/');
+    }
+    res.render('/join', {error:'Incorrect Passcode'});
+});
+
 module.exports = router;
