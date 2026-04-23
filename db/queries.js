@@ -34,7 +34,7 @@ async function createMessage({ title, text, userId }){
 async function getAllMessages(){
     const { rows } = await pool.query(
         `SELECT messages.*, users.first_name, users.last_name
-         FROM messages JOIN users ON messages.id = users.id
+         FROM messages JOIN users ON messages.user_id = users.id
          ORDER BY created_at DESC`
     );
     return rows;
