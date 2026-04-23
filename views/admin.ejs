@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin</title>
+    </head>
+    <body>
+        <h1>Admin</h1>
+        <% if (error) { %>
+            <p><%= error %></p>
+        <% } %>
+        <form action="/become-admin" method="POST">
+            <input type="password" name="passcde" placeholder="Admin Passcode" required />
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
