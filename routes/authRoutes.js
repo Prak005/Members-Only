@@ -50,7 +50,7 @@ router.post('/sign-up',
         const { firstName, lastName, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         await db.createUser({firstName, lastName, email, password:hashedPassword});
-        res.redirect('/?success=User Created');
+        res.redirect('/log-in');
     }
 );
 
@@ -78,7 +78,7 @@ router.get('/log-out', (req, res, next) => {
     req.logout((err) => {
         if (err)
             return next(err);
-        return res.redirect('/?success=Logged out succesfully');
+        return res.redirect('/?success=Logged out successfully');
     });
 });
 
