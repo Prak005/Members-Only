@@ -100,7 +100,7 @@ router.get('/join', isAuthenticated, (req, res) => {
 });
 router.post('/join', isAuthenticated, async(req, res) => {
     const { passcode } = req.body;
-    const secret = 'GLaDOS';
+    const secret = process.env.MEMBER_PASS;
     if(passcode === secret){
         await db.makeMember(req.user.id);
         return res.redirect('/?success=You are now a member');
@@ -113,7 +113,7 @@ router.get('/become-admin', isAuthenticated, (req, res) => {
 });
 router.post('/become-admin', isAuthenticated, async(req, res) => {
     const { passcode } = req.body;
-    const secret = 'verwalter';
+    const secret = process.env.ADMIN_PASS;
     if(passcode === secret){
         await db.makeAdmin(req.user.id);
         return res.redirect('/?success=You are now an admin');
