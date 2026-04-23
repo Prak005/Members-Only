@@ -105,4 +105,13 @@ router.post('/join', isAuthenticated, async(req, res) => {
     res.render('/join', {error:'Incorrect Passcode'});
 });
 
+router.post('/delete-message/:id', isAuthenticated, async(req, res) => {
+    if(!req.user.is_admin){
+        return res.redirect('/');
+    }
+    const messageId = req.params.id;
+    await db.deleteMessages(messageId);
+    res.redirect('/');
+});
+
 module.exports = router;
