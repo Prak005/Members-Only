@@ -8,7 +8,10 @@ const { isAuthenticated } = require('../middleware/authMiddleware');
 
 router.get('/', async (req, res) => {
     const messages = await db.getAllMessages();
-    res.render('index', { messages });
+    res.render('index', {
+        messages,
+        success: req.query.success || null,
+     });
 });
 
 router.get('/sign-up', (req, res) => {
@@ -89,7 +92,7 @@ router.post('/create-message', isAuthenticated, async(req, res) => {
         text,
         userId: req.user.id,
     });
-    res.redirect('/');
+    res.redirect('/?success=Message created');
 });
 
 router.get('/join', isAuthenticated, (req, res) => {
@@ -100,7 +103,7 @@ router.post('/join', isAuthenticated, async(req, res) => {
     const secret = 'GLaDOS';
     if(passcode === secret){
         await db.makeMember(req.user.id);
-        return res.redirect('/');
+        return res.redirect('/?success=You are now a member');
     }
     res.render('join', {error:'Incorrect Passcode'});
 });
@@ -113,7 +116,7 @@ router.post('/become-admin', isAuthenticated, async(req, res) => {
     const secret = 'verwalter';
     if(passcode === secret){
         await db.makeAdmin(req.user.id);
-        return res.redirect('/');
+        return res.redirect('/?success=You are now an admin');
     }
     res.render('admin', {error:'Incorrect Passcode'});
 });
