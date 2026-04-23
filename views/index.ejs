@@ -8,6 +8,7 @@
         <h1>Home</h1>
         <% if (currentUser) { %>
             <p>Welcome <%= currentUser.first_name %></p>
+            <a href="/create-message">Create Message</a>
             <a href="/log-out">Logout</a>
         <% } else { %>
             <a href="/log-in">Log In</a>
