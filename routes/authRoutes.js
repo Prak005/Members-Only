@@ -79,7 +79,7 @@ router.get('/log-out', (req, res, next) => {
 });
 
 router.get('/create-message', isAuthenticated, (req, res) => {
-    res.send('You can create a message');
+    res.render('create-message');
 });
 
 module.exports = router;
