@@ -30,6 +30,9 @@
                         <button type="submit">Delete</button>
                     </form>
                 <% } %>
+                <% if (currentUser && !currentUser.is_admin) { %>
+                    <a href="/become-admin">Admin Login</a>
+                <% } %>
             </div>
         <% }) %>
     </body>
