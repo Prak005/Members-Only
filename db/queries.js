@@ -31,9 +31,19 @@ async function createMessage({ title, text, userId }){
     return rows[0];
 };
 
+async function getAllMessages(){
+    const { rows } = await pool.query(
+        `SELECT messages.*, users.first_name, users.last_name
+         FROM messages JOIN users ON messages.id = users.id
+         ORDER BY created_at DESC`
+    );
+    return rows;
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
     getUserById,
     createMessage,
+    getAllMessages,
 };
