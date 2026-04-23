@@ -312,7 +312,6 @@ button[type="submit"]:active {
     font-weight: 600;
     font-size: 0.88rem;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-bottom: 0.25rem;
 }
