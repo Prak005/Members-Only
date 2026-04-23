@@ -6,6 +6,9 @@
     </head>
     <body>
         <h1>Home</h1>
+        <% if (success) { %>
+            <p><%= success %></p>
+        <% } %>
         <% if (currentUser) { %>
             <p>Welcome <%= currentUser.first_name %></p>
             <a href="/create-message">Create Message</a>
