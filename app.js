@@ -18,7 +18,7 @@ app.use(session({
         pool: pool,
         tableName: 'session',
     }), 
-    secret: 'cats', 
+    secret: process.env.SESSION_SECRET, 
     resave: false, 
     saveUninitialized: false
 }));
