@@ -81,5 +81,14 @@ router.get('/log-out', (req, res, next) => {
 router.get('/create-message', isAuthenticated, (req, res) => {
     res.render('create-message');
 });
+router.post('/create-message', isAuthenticated, async(req, res) => {
+    const { title, text } = req.body;
+    await db.createMessage({
+        title,
+        text,
+        userId: req.user.id,
+    });
+    res.redirect('/');
+});
 
 module.exports = router;
