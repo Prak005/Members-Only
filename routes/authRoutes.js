@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/sign-up', (req, res) => {
     res.render('sign-up', {
         errors: [],
-        oldData: [],
+        oldData: {},
     });
 });
 router.post('/sign-up',
@@ -50,7 +50,7 @@ router.post('/sign-up',
         const { firstName, lastName, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         await db.createUser({firstName, lastName, email, password:hashedPassword});
-        res.send('New User Created');
+        res.redirect('/?success=User Created');
     }
 );
 
@@ -69,7 +69,7 @@ router.post('/log-in', (req, res, next) => {
         req.login(user, (err) => {
             if(err)
                 return next(err);
-            return res.redirect('/');
+            return res.redirect('/?success=Logged in successfully');
         });
     })(req, res, next);
 });
@@ -78,7 +78,7 @@ router.get('/log-out', (req, res, next) => {
     req.logout((err) => {
         if (err)
             return next(err);
-        return res.redirect('/');
+        return res.redirect('/?success=Logged out succesfully');
     });
 });
 
@@ -123,11 +123,11 @@ router.post('/become-admin', isAuthenticated, async(req, res) => {
 
 router.post('/delete-message/:id', isAuthenticated, async(req, res) => {
     if(!req.user.is_admin){
-        return res.redirect('/');
+        return res.redirect('/?success=Admin access required');
     }
     const messageId = req.params.id;
     await db.deleteMessages(messageId);
-    res.redirect('/');
+    res.redirect('/?success=Message Deleted');
 });
 
 module.exports = router;
