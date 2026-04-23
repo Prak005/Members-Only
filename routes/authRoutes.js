@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
+const { isAuthenticated } = require('../middleware/authMiddleware');
 
 router.get('/', (req, res) => {
     res.render('index');
@@ -75,6 +76,10 @@ router.get('/log-out', (req, res, next) => {
             return next(err);
         return res.redirect('/');
     });
+});
+
+router.get('/create-message', isAuthenticated, (req, res) => {
+    res.send('You can create a message');
 });
 
 module.exports = router;
