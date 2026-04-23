@@ -57,6 +57,7 @@ nav {
     align-items: center;
     gap: 0.5rem;
     flex-wrap: nowrap;
+    justify-content: flex-end;
 }
 
 .nav-links a {
