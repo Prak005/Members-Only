@@ -25,6 +25,11 @@
                 <% } else { %>
                     <p>Anonymous</p>
                 <% } %>
+                <% if (currentUser && currentUser.is_admin) { %> 
+                    <form action="/delete-message/<%=msg.id%>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
             </div>
         <% }) %>
     </body>
