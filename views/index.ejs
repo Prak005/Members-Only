@@ -21,7 +21,7 @@
         <% messages.forEach(msg => { %>
             <div>
                 <h3><%= msg.title %></h3>
-                <p><%= msg.text %></p>
+                <p><%- msg.text.replace(/\n/g, '<br>') %></p>
                 <% if (currentUser && currentUser.is_member) { %>
                     <p>By: <%= msg.first_name %> <%= msg.last_name %></p>
                     <p><%= msg.created_at %></p>
