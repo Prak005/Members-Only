@@ -7,7 +7,8 @@ const db = require('../db/queries');
 const { isAuthenticated } = require('../middleware/authMiddleware');
 
 router.get('/', (req, res) => {
-    res.render('index');
+    const messages = await db.getAllMessages();
+    res.render('index', { messages });
 });
 
 router.get('/sign-up', (req, res) => {
