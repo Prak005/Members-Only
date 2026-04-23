@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
 const { isAuthenticated } = require('../middleware/authMiddleware');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const messages = await db.getAllMessages();
     res.render('index', { messages });
 });
