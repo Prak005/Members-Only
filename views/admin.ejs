@@ -6,13 +6,16 @@
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <h1>Admin</h1>
-        <% if (error) { %>
-            <p><%= error %></p>
-        <% } %>
-        <form action="/become-admin" method="POST">
-            <input type="password" name="passcde" placeholder="Admin Passcode" required />
-            <button type="submit">Submit</button>
-        </form>
+        <div class="container">
+            <a href="/" class="back-home">← Home</a>
+            <h1>Admin Login</h1>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+            <form action="/become-admin" method="POST">
+                <input type="password" name="passcode" placeholder="Admin Passcode" required />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </body>
 </html>

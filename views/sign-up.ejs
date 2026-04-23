@@ -6,26 +6,24 @@
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <h1>Sign Up</h1>
-        <% if(errors) {%>
-            <ul>
-                <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                <% }) %>
-            </ul>
-        <% } %>
-        <form action="/sign-up" method="POST">
-            <input type="text" name="firstName" placeholder="First Name" value="<%= oldData.firstName || '' %>" required />
-            <br/>
-            <input type="text" name="lastName" placeholder="Last Name" value="<%= oldData.lastName || '' %>" required />
-            <br/>
-            <input type="email" name="email" placeholder="Email" value="<%= oldData.email || '' %>" required />
-            <br/>
-            <input type="password" name="password" placeholder="Password" required />
-            <br/>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
-            <br/>
-            <button type="submit">Sign Up</button>
-        </form>
+        <div class="container">
+            <a href="/" class="back-home">← Home</a>
+            <h1>Sign Up</h1>
+            <% if(errors && errors.length > 0) { %>
+                <ul class="error">
+                    <% errors.forEach(error => { %>
+                        <li><%= error.msg %></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+            <form action="/sign-up" method="POST">
+                <input type="text" name="firstName" placeholder="First Name" value="<%= oldData.firstName || '' %>" required />
+                <input type="text" name="lastName" placeholder="Last Name" value="<%= oldData.lastName || '' %>" required />
+                <input type="email" name="email" placeholder="Email" value="<%= oldData.email || '' %>" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
     </body>
 </html>

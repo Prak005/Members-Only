@@ -6,41 +6,64 @@
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <h1>Home</h1>
-        <% if (success) { %>
-            <p><%= success %></p>
-        <% } %>
-        <% if (currentUser) { %>
-            <p>Welcome <%= currentUser.first_name %></p>
-            <a href="/create-message">Create Message</a>
-            <a href="/log-out">Logout</a>
-        <% } else { %>
-            <a href="/log-in">Log In</a>
-            <a href="/sign-up">Sign Up</a>
-        <% } %>
-        <% if (currentUser && !currentUser.is_admin) { %>
-            <a href="/become-admin">Admin Login</a>
-        <% } %>
-        <% if (currentUser && !currentUser.is_member) { %>
-            <a href="/join">Become Member</a>
-        <% } %>
-        <h1>Messages</h1>
-        <% messages.forEach(msg => { %>
-            <div>
-                <h3><%= msg.title %></h3>
-                 <p style="white-space: pre-wrap;"><%= msg.text.trim() %></p>
-                <% if (currentUser && currentUser.is_member) { %>
-                    <p>By: <%= msg.first_name %> <%= msg.last_name %></p>
-                    <p><%= msg.created_at %></p>
+        <nav>
+            <a href="/" class="nav-brand">Home</a>
+            <div class="nav-links">
+                <% if (currentUser) { %>
+                    <% if (!currentUser.is_admin) { %>
+                        <a href="/become-admin">Admin Login</a>
+                    <% } %>
+                    <% if (!currentUser.is_member) { %>
+                        <a href="/join">Become Member</a>
+                    <% } %>
+                    <a href="/create-message">Create Message</a>
+                    <a href="/log-out">Logout</a>
                 <% } else { %>
-                    <p>Anonymous</p>
-                <% } %>
-                <% if (currentUser && currentUser.is_admin) { %> 
-                    <form action="/delete-message/<%=msg.id%>" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <a href="/log-in">Log In</a>
+                    <a href="/sign-up">Sign Up</a>
                 <% } %>
             </div>
-        <% }) %>
+        </nav>
+
+        <div class="page-content">
+            <% if (success) { %>
+                <p class="success"><%= success %></p>
+            <% } %>
+            <% if (currentUser) { %>
+                <p class="welcome-text">Welcome, <%= currentUser.first_name %></p>
+            <% } %>
+
+            <h1 class="section-heading">Messages</h1>
+
+            <div class="messages-grid">
+                <% messages.forEach(msg => { %>
+                    <div class="message-card">
+                        <div class="message-header">
+                            <% if (currentUser && currentUser.is_member) { %>
+                                <div class="message-avatar"><%= msg.first_name[0].toUpperCase() %></div>
+                                <div class="message-author-block">
+                                    <span class="message-author"><%= msg.first_name %> <%= msg.last_name %></span>
+                                    <span class="message-time"><%= new Date(msg.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></span>
+                                </div>
+                            <% } else { %>
+                                <div class="message-avatar">?</div>
+                                <div class="message-author-block">
+                                    <span class="message-author">Anonymous</span>
+                                </div>
+                            <% } %>
+                            <% if (currentUser && currentUser.is_admin) { %>
+                                <form action="/delete-message/<%=msg.id%>" method="POST" class="delete-form">
+                                    <button type="submit" class="delete-btn" title="Delete">&#x2715;</button>
+                                </form>
+                            <% } %>
+                        </div>
+                        <div class="message-body">
+                            <span class="message-title"><%= msg.title %></span>
+                            <p><%= msg.text.trim() %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
     </body>
 </html>

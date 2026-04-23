@@ -6,13 +6,14 @@
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <h1>Create Message</h1>
-        <form action="/create-message" method="POST">
-            <input type="text" name="title" placeholder="Title" required />
-            <br/>
-            <textarea name="text" placeholder="Your message..." required></textarea>
-            <br/>
-            <button type="submit">Post</button>
-        </form>
+        <div class="container">
+            <a href="/" class="back-home">← Home</a>
+            <h1>Create Message</h1>
+            <form action="/create-message" method="POST">
+                <input type="text" name="title" placeholder="Title" required />
+                <textarea name="text" placeholder="Your message..." required></textarea>
+                <button type="submit">Post</button>
+            </form>
+        </div>
     </body>
 </html>

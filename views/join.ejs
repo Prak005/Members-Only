@@ -6,13 +6,16 @@
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <h1>Enter Secret Passcode</h1>
-        <% if (error) { %>
-            <p><%= error %></p>
-        <% } %>
-        <form action="/join" method="POST">
-            <input type="password" name="passcode" placeholder="Passcode" required />
-            <button type="submit">Join</button>
-        </form>
+        <div class="container">
+            <a href="/" class="back-home">← Home</a>
+            <h1>Enter Secret Passcode</h1>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+            <form action="/join" method="POST">
+                <input type="password" name="passcode" placeholder="Passcode" required />
+                <button type="submit">Join</button>
+            </form>
+        </div>
     </body>
 </html>
