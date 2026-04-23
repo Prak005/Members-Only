@@ -102,7 +102,20 @@ router.post('/join', isAuthenticated, async(req, res) => {
         await db.makeMember(req.user.id);
         return res.redirect('/');
     }
-    res.render('/join', {error:'Incorrect Passcode'});
+    res.render('join', {error:'Incorrect Passcode'});
+});
+
+router.get('/become-admin', isAuthenticated, (req, res) => {
+    res.render('admin', { error: null });
+});
+router.post('/become-admin', isAuthenticated, async(req, res) => {
+    const { passcode } = req.body;
+    const secret = 'verwalter';
+    if(passcode === secret){
+        await db.makeAdmin(req.user.id);
+        return res.redirect('/');
+    }
+    res.render('admin', {error:'Incorrect Passcode'});
 });
 
 router.post('/delete-message/:id', isAuthenticated, async(req, res) => {
