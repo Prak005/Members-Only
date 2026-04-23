@@ -52,6 +52,12 @@ async function deleteMessages(id) {
     );
 }
 
+async function makeAdmin(userId) {
+    await pool.query(
+        `UPDATE users SET is_admin = TRUE WHERE id=$1`, [userId]
+    );
+};
+
 module.exports = {
     createUser,
     getUserByEmail,
@@ -60,4 +66,5 @@ module.exports = {
     getAllMessages,
     makeMember,
     deleteMessages,
+    makeAdmin,
 };
